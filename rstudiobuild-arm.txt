@@ -1,0 +1,6 @@
+cmake ../ -DRSTUDIO_TARGET=Desktop -DCMAKE_BUILD_TYPE=Release -DRSTUDIO_USE_SYSTEM_BOOST=yes 
+-DCMAKE_INSTALL_PREFIX=/data/rstudiodesktop/
+
+
+cmake ../ -DRSTUDIO_TARGET=Server -DCMAKE_BUILD_TYPE=Release -DRSTUDIO_USE_SYSTEM_BOOST=yes 
+-DCMAKE_INSTALL_PREFIX=/data/rstudioserver/

@@ -1,0 +1,82 @@
+diff --git a/dependencies/common/install-mathjax b/dependencies/common/install-mathjax
+index 8ad139beac..5b14df4bca 100755
+--- a/dependencies/common/install-mathjax
++++ b/dependencies/common/install-mathjax
+@@ -41,7 +41,7 @@ then
+    echo "Mathjax already installed"
+ else
+    MATHJAX=mathjax-26.zip
+-   download $MATHJAX
++   #download $MATHJAX
+    unzip -q "$MATHJAX"
+    rm $MATHJAX
+ fi
+diff --git a/src/cpp/desktop/CMakeLists.txt b/src/cpp/desktop/CMakeLists.txt
+index 3afff314d7..ac442d58f1 100644
+--- a/src/cpp/desktop/CMakeLists.txt
++++ b/src/cpp/desktop/CMakeLists.txt
+@@ -21,7 +21,7 @@ if(CMAKE_VERSION VERSION_GREATER "3.0.0")
+    cmake_policy(SET CMP0043 NEW)
+ endif()
+ 
+-set(QT_VERSION_SUBDIR "5.10.0")
++set(QT_VERSION_SUBDIR "5.10.1")
+ 
+ # on unix prefer qtsdk installs over system-level libraries. note this
+ # can be overriden by defining QT_QMAKE_EXECUTABLE when invoking cmake
+@@ -93,8 +93,8 @@ if(QT_QMAKE_EXECUTABLE)
+ endif()
+ 
+ # set the cmake prefix path based on the location of the qmake executable
+-get_filename_component(QT_BIN_DIR ${QT_QMAKE_EXECUTABLE} PATH)
+-set(CMAKE_PREFIX_PATH "${QT_BIN_DIR}//..//lib//cmake")
++#get_filename_component(QT_BIN_DIR ${QT_QMAKE_EXECUTABLE} PATH)
++set(CMAKE_PREFIX_PATH "/usr/lib/cmake")
+ 
+ # find and include Qt
+ add_definitions(
+diff --git a/src/gwt/build.xml b/src/gwt/build.xml
+index 06ac991d1b..dcf7679b6c 100644
+--- a/src/gwt/build.xml
++++ b/src/gwt/build.xml
+@@ -115,11 +115,12 @@
+             <path refid="project.class.path"/>
+          </classpath>
+          <!-- add jvmarg -Xss16M or similar if you see a StackOverflowError -->
++         <jvmarg value="-Xss16M"/>
+          <jvmarg value="-Xmx1536M"/>
+          <arg value="-war"/>
+          <arg value="${www.dir}"/>
+          <arg value="-localWorkers"/>
+-         <arg value="2"/>
++         <arg value="1"/> 
+          <arg value="-XdisableClassMetadata"/>
+          <arg value="-XdisableCastChecking"/>
+          <arg line="-strict"/>
+@@ -155,7 +156,7 @@
+             <pathelement location="${src.dir}"/>
+             <path refid="project.class.path"/>
+          </classpath>
+-         <jvmarg value="-Xmx2048M"/>
++         <jvmarg value="-Xmx1536M"/>
+          <arg value="-style"/>
+          <arg value="PRETTY"/>
+          <arg value="-XmethodNameDisplayMode"/>
+@@ -176,7 +177,7 @@
+             <pathelement location="src"/>
+             <path refid="project.class.path"/>
+          </classpath>
+-         <jvmarg value="-Xmx2048M"/>
++         <jvmarg value="-Xmx1536M"/>
+          <arg value="-style"/>
+          <arg value="PRETTY"/>
+          <arg value="-XmethodNameDisplayMode"/>
+@@ -201,7 +202,7 @@
+             <pathelement location="src"/>
+             <path refid="project.class.path"/>
+          </classpath>
+-         <jvmarg value="-Xmx2048M"/>
++         <jvmarg value="-Xmx1536M"/>
+       	<arg value="-src"/>
+       	<arg value = "src"/>
+         <arg value="org.rstudio.studio.RStudioSuperDevMode"/>
